@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  pull_request:
+    branches:
+    - '[0-9]+.[0-9]+.[0-9]+'
+
+jobs:
+  lint_frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+  lint_backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+  unit_frontend:
+    runs-on: ubuntu-latest
+    needs: [lint_frontend, lint_backend]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+  unit_backend:
+    runs-on: ubuntu-latest
+    needs: [lint_frontend, lint_backend]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+  feature_frontend:
+    runs-on: ubuntu-latest
+    needs: [unit_frontend, unit_backend]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+  feature_backend:
+    runs-on: ubuntu-latest
+    needs: [unit_frontend, unit_backend]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+  integration_test:
+    runs-on: ubuntu-latest
+    needs: [feature_frontend, feature_backend]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
